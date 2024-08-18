@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Notes</title>
+  </head>
+  <body>
+	  <h1>Note taking app</h1>
+    
+    <table>
+	    <tr>
+	      <th style="text-align:left">Username: 
+          <td>{{user.username}} <a href="{% url 'userData' user.id %}"> view your data </a>
+    </table>
+    
+    <form action="logout/" method="POST">
+		  {% csrf_token %}
+      <input type="submit" value="Logout"/>
+    </form>
+
+    <h2> Add new note: </h2>
+    <form action="add/" method="POST">
+      {% csrf_token %}
+      <input type="text" name="text">
+      <input type="submit" value="add"/>
+    </form>
+
+    <h2> Your notes: </h2>
+    <form action="/" method="GET">
+      <input type="text" placeholder="search notes" name="search">
+      <input type="submit" value="search"/>
+    </form>
+    
+    <ul>
+      {% for note in notes %}
+        <li>
+          <!-- 
+            Vulnerability: Cross-Site Scripting (XSS)
+            ---
+            You can test this issue by, for example, adding new note with content:
+            <script> alert("you've been hacked") </script>.
+
+            FIX: removing the '|safe' part from the template expression below
+            = {{ note.content }}
+          -->
+          {{ note.content|safe }}
+        </li>
+      {% endfor %}
+    </ul>
+
+  </body>
+</html>
