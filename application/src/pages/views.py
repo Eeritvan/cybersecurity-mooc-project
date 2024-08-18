@@ -24,7 +24,7 @@ def homePageView(request):
 	# to the search field. This example input should expose other users' usernames and password hashes
 
 	# FIX:
-	# removing/commenting out the if-statement below and replacing it with the following:
+	# removing/commenting out the if-statement and replacing it with the following:
 	# notes = Note.objects.filter(owner=user.id, content__icontains=search_query)
 
 	if search_query:
