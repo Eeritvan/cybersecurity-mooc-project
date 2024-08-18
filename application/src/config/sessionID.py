@@ -1,5 +1,7 @@
 import django.contrib.sessions.backends.db as db
 
+# weak session key generation 
+
 class SessionStore(db.SessionStore):
     counter = 0
     def _get_new_session_key(self):
